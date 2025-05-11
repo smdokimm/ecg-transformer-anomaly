@@ -1,0 +1,28 @@
+# Python
+__pycache__/
+*.py[cod]
+*.so
+*.pyd
+*.ipynb_checkpoints/
+
+# VS Code
+.vscode/
+*.code-workspace
+
+# Jupyter artifacts
+*.ipynb
+
+# Virtual environment
+.venv/
+
+# Weights & Biases logs
+wandb/
+*.wandb
+
+# Logs
+*.log
+*.tmp
+
+# Mac/Linux/Windows OS
+.DS_Store
+Thumbs.db
