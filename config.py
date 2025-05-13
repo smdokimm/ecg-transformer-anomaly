@@ -2,7 +2,7 @@
 import os
 
 config = {
-    "project_name": "ecg-transformer-anomaly",
+    "project_name": "ecg-transformer-anomaly2",
     "epochs": 100,
     "patience": 5,
     "batch_size": 16,

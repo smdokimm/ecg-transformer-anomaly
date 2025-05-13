@@ -70,7 +70,8 @@ class ECGTransformerAutoencoder(nn.Module):
         super().__init__()
         self.input_projection = MyLinear(config["in_channels"], config["d_model"])
         self.dropout_emb = nn.Dropout(config["dropout"])
-        self.pos_embedding = get_sinusoidal_encoding(config["seq_len"], config["d_model"])
+        pos_encoding = get_sinusoidal_encoding(config["seq_len"], config["d_model"])
+        self.register_buffer("pos_embedding", pos_encoding)
         self.layers = nn.ModuleList([
             TransformerEncoderLayerUnbundled(
                 config["d_model"], config["nhead"], config["ff_dim"], config["dropout"]
@@ -83,7 +84,7 @@ class ECGTransformerAutoencoder(nn.Module):
     def forward(self, x):
         x = self.input_projection(x)
         x = self.dropout_emb(x)
-        x = x + self.pos_embedding[:, :x.size(1), :].to(x.device)
+        x = x + self.pos_embedding[:, :x.size(1), :]
         for layer in self.layers:
             x = layer(x)
         return self.decoder(x)
