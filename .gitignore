@@ -1,6 +1,3 @@
-# Data files
-data/*.txt
-
 # Python
 __pycache__/
 *.py[cod]
