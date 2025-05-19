@@ -124,6 +124,7 @@ if __name__ == "__main__":
     ff_dim = int(input("ffd? "))
     num_layers = int(input("num_layers? "))
     runs = int(input("how many autoruns? "))
+    epochs = int(input("epochs? "))
 
     # Update config with user inputs
     config['project_name'] = project_name
@@ -131,6 +132,7 @@ if __name__ == "__main__":
     config['nhead'] = nhead
     config['ff_dim'] = ff_dim
     config['num_layers'] = num_layers
+    config['epochs'] = epochs
 
     # Execute with auto rerun
     auto_rerun(main, runs=runs, delay=3)
