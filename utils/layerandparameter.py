@@ -2,34 +2,24 @@ import torch
 import torch.nn as nn
 from collections import defaultdict
 
-# Stores output shapes for each named module
 default_layer_shapes = {}
 
-# Hook to record output shapes
 def make_hook(name):
     def hook(module, inp, out):
         default_layer_shapes[name] = tuple(out.shape)
     return hook
 
-# Summarize model: output shapes + parameter counts
 def summarize_model(model: nn.Module, config: dict, device: torch.device):
-    # 1) Register hooks
     for name, module in model.named_modules():
         if name:
             module.register_forward_hook(make_hook(name))
-
-    # 2) Dummy forward pass
     seq_len = config['seq_len']
     in_ch = config['in_channels']
     dummy = torch.zeros(1, seq_len, in_ch, device=device)
     model(dummy)
-
-    # 3) Print layer output shapes
     print("=== Layer Output Shapes ===")
     for name, shape in default_layer_shapes.items():
         print(f"{name:50s} -> {shape}")
-
-    # 4) Print parameter counts
     print("\n=== Named Parameters ===")
     module_counts = defaultdict(int)
     total_params = 0

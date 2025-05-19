@@ -19,7 +19,6 @@ def load_dataset():
     valid_signals, valid_labels = load_ecg_data(valid_file)
     test_signals,  test_labels  = load_ecg_data(test_file)
 
-    # Filter normal samples (label == 1) for train and valid
     train_idx = np.where(train_labels == 1)[0]
     valid_idx = np.where(valid_labels == 1)[0]
 
